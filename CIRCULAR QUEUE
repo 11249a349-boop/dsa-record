@@ -1,0 +1,92 @@
+Aim of Circular Queue Using  List
+
+To implement a circular queue dynamically using a linked list, allowing insertion at rear and deletion from front, and efficiently utilizing memory by linking the rear node to the front node to form a circular structure.
+
+PROGRAM:
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Front and Rear pointers
+struct Node* front = NULL;
+struct Node* rear = NULL;
+
+// Enqueue operation
+void enqueue(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if(newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if(front == NULL) { // Empty queue
+        front = rear = newNode;
+        rear->next = front; // Circular link
+    } else {
+        rear->next = newNode;
+        rear = newNode;
+        rear->next = front; // Maintain circular link
+    }
+    printf("%d enqueued\n", value);
+}
+
+// Dequeue operation
+void dequeue() {
+    if(front == NULL) {
+        printf("Queue Underflow\n");
+        return;
+    }
+
+    int value;
+    if(front == rear) { // Only one node
+        value = front->data;
+        free(front);
+        front = rear = NULL;
+    } else {
+        struct Node* temp = front;
+        value = temp->data;
+        front = front->next;
+        rear->next = front; // Maintain circular link
+        free(temp);
+    }
+    printf("%d dequeued\n", value);
+}
+
+// Display circular queue
+void display() {
+    if(front == NULL) {
+        printf("Queue is empty\n");
+        return;
+    }
+
+    struct Node* temp = front;
+    printf("Circular Queue: ");
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while(temp != front);
+    printf("\n");
+}
+
+// Main function
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    display();
+
+    dequeue();
+    display();
+
+    enqueue(40);
+    display();
+
+    return 0;
+}
