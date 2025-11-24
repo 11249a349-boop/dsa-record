@@ -1,0 +1,78 @@
+AIM of Queue
+To store and manage data in a First In, First Out (FIFO) manner, allowing insertion of elements at the rear and deletion from the front, and to demonstrate the practical application of queue operations using arrays or linked lists.
+
+
+PROGRAM:
+#include <stdio.h>
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+// Check if queue is empty
+int isEmpty() {
+    return front == -1 || front > rear;
+}
+
+// Check if queue is full
+int isFull() {
+    return rear == MAX - 1;
+}
+
+// Enqueue operation
+void enqueue(int value) {
+    if (isFull()) {
+        printf("Queue Overflow\n");
+    } else {
+        if (front == -1) front = 0; // First element
+        rear++;
+        queue[rear] = value;
+        printf("%d enqueued\n", value);
+    }
+}
+
+// Dequeue operation
+void dequeue() {
+    if (isEmpty()) {
+        printf("Queue Underflow\n");
+    } else {
+        printf("%d dequeued\n", queue[front]);
+        front++;
+    }
+}
+
+// Peek / Front
+void peek() {
+    if (isEmpty()) {
+        printf("Queue is empty\n");
+    } else {
+        printf("Front element is %d\n", queue[front]);
+    }
+}
+
+// Display queue elements
+void display() {
+    if (isEmpty()) {
+        printf("Queue is empty\n");
+    } else {
+        printf("Queue elements: ");
+        for (int i = front; i <= rear; i++) {
+            printf("%d ", queue[i]);
+        }
+        printf("\n");
+    }
+}
+
+// Main function
+int main() {
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    display();
+    peek();
+    dequeue();
+    display();
+    peek();
+    return 0;
+}
+
