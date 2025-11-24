@@ -1,0 +1,53 @@
+Aim of Binary Search
+To efficiently search for a specific element (key) in a sorted array by repeatedly dividing the search interval in half until the element is found or the search interval becomes empty.
+
+PROGRAM
+#include <stdio.h>
+
+int main() {
+    int n, key, low, high, mid, flag = 0;
+    
+    // Input the number of elements
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    
+    // Input elements in sorted order (important for Binary Search!)
+    printf("Enter %d elements in ascending order:\n", n);
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    
+    // Input the element to search
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+    
+    // Initialize low and high pointers
+    low = 0;
+    high = n - 1;
+
+    // Binary Search loop
+    while(low <= high) {
+        mid = (low + high) / 2;  // Find the middle index
+        
+        if(arr[mid] == key) {    // Check if middle element is the key
+            printf("Element found at position %d\n", mid + 1);
+            flag = 1;            // Element found
+            break;
+        }
+        else if(arr[mid] < key) {  // If key is greater, ignore left half
+            low = mid + 1;
+        }
+        else {                      // If key is smaller, ignore right half
+            high = mid - 1;
+        }
+    }
+    
+    // If element is not found
+    if(flag == 0) {
+        printf("Element not found\n");
+    }
+    
+    return 0;
+}
