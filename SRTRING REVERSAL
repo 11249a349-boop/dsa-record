@@ -1,0 +1,59 @@
+Aim
+
+To reverse a given string by storing its characters in a stack and retrieving them in LIFO order, demonstrating the use of stack operations.
+
+PROGRAM :
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+// Function to push character onto stack
+void push(char c) {
+    if(top == MAX-1) {
+        printf("Stack Overflow\n");
+    } else {
+        top++;
+        stack[top] = c;
+    }
+}
+
+// Function to pop character from stack
+char pop() {
+    if(top == -1) {
+        printf("Stack Underflow\n");
+        return '\0';
+    } else {
+        char c = stack[top];
+        top--;
+        return c;
+    }
+}
+
+int main() {
+    char str[MAX], reversedStr[MAX];
+    int i = 0;
+
+    printf("Enter a string: ");
+    gets(str);  // Input string (unsafe, but for simplicity)
+
+    int len = strlen(str);
+
+    // Push all characters to stack
+    for(i = 0; i < len; i++) {
+        push(str[i]);
+    }
+
+    // Pop all characters from stack to reverse string
+    for(i = 0; i < len; i++) {
+        reversedStr[i] = pop();
+    }
+    reversedStr[len] = '\0'; // Null-terminate the string
+
+    printf("Reversed string: %s\n", reversedStr);
+
+    return 0;
+}
+
