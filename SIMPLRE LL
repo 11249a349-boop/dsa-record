@@ -1,0 +1,63 @@
+Aim of Simple Linked List
+
+To store and manage a sequence of elements dynamically using nodes, where each node contains data and a pointer to the next node, and to demonstrate basic linked list operations like insertion, deletion, and traversal.
+
+
+PROGRAM:
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert node at the end
+void insertEnd(struct Node** head, int value) {
+    struct Node* newNode = createNode(value);
+    if (*head == NULL) { // Empty list
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+    printf("%d inserted at end\n", value);
+}
+
+// Function to display the linked list
+void display(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+    } else {
+        struct Node* temp = head;
+        printf("Linked List: ");
+        while (temp != NULL) {
+            printf("%d -> ", temp->data);
+            temp = temp->next;
+        }
+        printf("NULL\n");
+    }
+}
+
+// Main function
+int main() {
+    struct Node* head = NULL; // Initialize empty list
+
+    insertEnd(&head, 10);
+    insertEnd(&head, 20);
+    insertEnd(&head, 30);
+    display(head);
+
+    return 0;
+}
